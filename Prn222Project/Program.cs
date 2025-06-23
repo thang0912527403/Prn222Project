@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Prn222Project.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var config = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -13,7 +13,20 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddAuthentication()
+   .AddGoogle(options =>
+   {
+       IConfigurationSection googleAuthNSection =
+       config.GetSection("Authentication:Google");
+       options.ClientId = googleAuthNSection["ClientId"];
+       options.ClientSecret = googleAuthNSection["ClientSecret"];
+   }).AddFacebook(options =>
+   {
+       IConfigurationSection FBAuthNSection =
+       config.GetSection("Authentication:FB");
+       options.ClientId = FBAuthNSection["ClientId"];
+       options.ClientSecret = FBAuthNSection["ClientSecret"];
+   });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
