@@ -112,4 +112,99 @@
         const modal = document.getElementById('authModal');
         if (e.target === modal) closeModal();
     });
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
 })();
+// === Sign up Modal Logic ===
+(function () {
+    window.openSignUpModal = () => document.getElementById('signUpModal')?.classList.remove('hidden');
+    window.closeSignUpModal = () => document.getElementById('signUpModal')?.classList.add('hidden');
+
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('signUpModal');
+        if (e.target === modal) closeSignUpModal();
+    });
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeSignUpModal();
+        }
+    });
+})();
+// Popover functionality
+const userButton = document.getElementById('userButton');
+const popover = document.getElementById('popover');
+let isPopoverVisible = false;
+
+// Toggle popover
+function togglePopover() {
+    if (isPopoverVisible) {
+        hidePopover();
+    } else {
+        showPopover();
+    }
+}
+
+// Show popover
+function showPopover() {
+    popover.classList.remove('opacity-0', 'invisible', 'scale-95');
+    popover.classList.add('opacity-100', 'visible', 'scale-100');
+    isPopoverVisible = true;
+}
+
+// Hide popover
+function hidePopover() {
+    popover.classList.remove('opacity-100', 'visible', 'scale-100');
+    popover.classList.add('opacity-0', 'invisible', 'scale-95');
+    isPopoverVisible = false;
+}
+
+// Event listeners
+userButton.addEventListener('click', togglePopover);
+
+// Close popover when clicking outside
+document.addEventListener('click', function (event) {
+    if (!userButton.contains(event.target) && !popover.contains(event.target)) {
+        hidePopover();
+    }
+});
+
+// Close popover on ESC key
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && isPopoverVisible) {
+        hidePopover();
+    }
+});
+
+// Dark mode toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to light mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    html.classList.add('dark');
+}
+
+darkModeToggle.addEventListener('click', function () {
+    html.classList.toggle('dark');
+
+    // Save theme preference
+    const theme = html.classList.contains('dark') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+});
+
+
+
+function changeToSignUp() {
+    closeModal();
+    openSignUpModal();
+}
+function changeToSignIn() {
+    closeSignUpModal();
+    openModal();
+}

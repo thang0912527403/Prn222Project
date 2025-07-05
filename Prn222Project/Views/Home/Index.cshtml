@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+@{
     ViewData["Title"] = "Home Page";
 }
 @{
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="~/css/tailwind.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>  
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     @* <script src="~/js/tailwind.config.js"></script> *@
@@ -73,12 +74,65 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                             </svg>
                         </button>
-                        <a type="button" class="relative size-8 rounded-full dark:bg-white bg-gray-800 dark:hover:text-black p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer"
-                           onclick="openModal()">
-                            <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">View notifications</span>
-                            <i class="fa-solid fa-right-to-bracket"></i>
-                        </a>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a type="button" class="relative size-8 rounded-full dark:bg-white bg-gray-800 dark:hover:text-black p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer"
+                               onclick="openModal()">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">View notifications</span>
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <button id="userButton" type="button" class="relative size-8 rounded-full dark:bg-white bg-gray-800 dark:hover:text-black p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">View notifications</span>
+                                <i class="fa-solid fa-user-tie"></i>
+                            </button>
+                            <!-- Popover -->
+                            <div id="popover"
+                                 class="absolute right-0 mt-2 w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-lg opacity-0 invisible transform scale-95 transition-all duration-200 z-10"
+                                 style="top: 100%;">
+                                <div class="absolute -top-2 right-3 w-4 h-4 bg-gray-800 border-l border-t border-gray-700 transform rotate-45"></div>
+                                <div class="p-4">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                            <i class="fa-solid fa-user text-white text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-white">Thang</h3>
+                                            <p class="text-sm text-gray-400">Administrator</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-gray-700 pt-3">
+                                        <ul class="space-y-1">
+                                            <li>
+                                                <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors">
+                                                    <i class="fa-solid fa-user-circle w-4 h-4"></i>
+                                                    <span>Profile</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors">
+                                                    <i class="fa-solid fa-cog w-4 h-4"></i>
+                                                    <span>Settings</span>
+                                                </a>
+                                            </li>
+                                            <li class="border-t border-gray-700 pt-1">
+                                                <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="inline">
+                                                    <button type="submit" class="flex items-center space-x-3 px-2 py-2 text-sm text-red-400 hover:bg-red-900/20 rounded-md transition-colors">
+                                                        <i class="fa-solid fa-sign-out-alt w-4 h-4"></i>
+                                                        <span>Logout</span>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -553,7 +607,7 @@
         </footer>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Login -->
     <div id="authModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden">
         <div class="bg-[#1a1e24] text-white rounded-xl shadow-xl w-full max-w-md p-8 relative">
 
@@ -625,11 +679,113 @@
                 <a href="#" class="hover:underline">Forgot Password?</a>
                 <div class="mt-2">
                     Not a member yet?
-                    <a href="#" class="text-green-400 font-medium hover:underline">Sign Up</a>
+                    <a onclick="changeToSignUp()" class="text-green-400 font-medium hover:underline">Sign Up</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden">
+        <div class="bg-[#1a1e24] text-white rounded-xl shadow-xl w-full max-w-md p-8 relative mx-4">
+
+            <button onclick="closeSignUpModal()" class="absolute top-4 right-5 text-gray-400 hover:text-white text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="flex items-center justify-center gap-2 text-2xl font-bold">
+                    <i class="fas fa-user-plus text-white"></i>
+                    <span class="text-green-400">Sign Up</span>
+                </div>
+                <p class="text-gray-400 text-sm mt-2">Create your account to get started</p>
+            </div>
+
+            
+
+            
+
+            <form class="space-y-4" onsubmit="handleSignUp(event)">
+                <div>
+                    <input type="text" id="fullName" placeholder="Full Name" required
+                           class="w-full bg-[#2b2f36] text-white border border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" />
+                </div>
+                <div>
+                    <input type="email" id="email" placeholder="Email Address" required
+                           class="w-full bg-[#2b2f36] text-white border border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" />
+                </div>
+                <div>
+                    <input type="password" id="password" placeholder="Password" required
+                           class="w-full bg-[#2b2f36] text-white border border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" />
+                </div>
+                <div>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required
+                           class="w-full bg-[#2b2f36] text-white border border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" />
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" required class="mr-2 text-green-400">
+                    <label for="terms" class="text-sm text-gray-400">
+                        I agree to the <a href="#" class="text-green-400 hover:underline">Terms of Service</a> and
+                        <a href="#" class="text-green-400 hover:underline">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-green-400 text-black font-semibold py-3 rounded-lg hover:bg-green-500 transition duration-200">
+                    Create Account
+                </button>
+            </form>
+            <div class="flex items-center gap-2 text-gray-500 text-sm mb-3 mt-3">
+                <div class="flex-1 border-t border-gray-700"></div>
+                OR
+                <div class="flex-1 border-t border-gray-700"></div>
+            </div>
+            <div class="flex gap-4 mb-6">
+                <!-- Google Login -->
+                <form id="external-account" method="post" action="/Identity/Account/ExternalLogin?returnUrl=%2F" class="flex w-1/2">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" name="provider" value="Google"
+                            class="flex w-full items-center justify-center gap-2.5 rounded-lg p-3.5 text-white bg-gray-800 hover:bg-gray-700 transition">
+                        <span>Sign In</span>
+                        <!-- Google Logo -->
+                        <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_709_8846)">
+                                <path d="M22.5001 11.2438C22.5134 10.4876 22.4338 9.73256 22.2629 8.995H11.7246V13.0771H17.9105C17.7933 13.7929 17.5296 14.478 17.1352 15.0914C16.7409 15.7047 16.224 16.2335 15.6158 16.646L15.5942 16.7827L18.9264 19.3124L19.1571 19.335C21.2772 17.4161 22.4997 14.5926 22.4997 11.2438" fill="#4285F4"></path>
+                                <path d="M11.7245 22C14.755 22 17.2992 21.0221 19.1577 19.3355L15.6156 16.6464C14.6679 17.2944 13.3958 17.7467 11.7245 17.7467C10.3051 17.7385 8.92433 17.2926 7.77814 16.472C6.63195 15.6515 5.77851 14.4981 5.33892 13.1755L5.20737 13.1865L1.74255 15.8142L1.69727 15.9376C2.63043 17.7602 4.06252 19.2925 5.83341 20.3631C7.60429 21.4337 9.64416 22.0005 11.7249 22" fill="#34A853"></path>
+                                <path d="M5.33889 13.1755C5.09338 12.4753 4.96669 11.7404 4.96388 11C4.9684 10.2608 5.09041 9.52685 5.32552 8.8245L5.31927 8.67868L1.81196 6.00867L1.69724 6.06214C0.910039 7.5938 0.5 9.28491 0.5 10.9999C0.5 12.7148 0.910039 14.406 1.69724 15.9376L5.33889 13.1755Z" fill="#FBBC05"></path>
+                                <path d="M11.7249 4.25337C13.3333 4.22889 14.8888 4.8159 16.065 5.89121L19.2329 2.86003C17.2011 0.992106 14.5106 -0.0328008 11.7249 3.27798e-05C9.64418 -0.000452376 7.60433 0.566279 5.83345 1.63686C4.06256 2.70743 2.63046 4.23965 1.69727 6.06218L5.32684 8.82455C5.77077 7.50213 6.62703 6.34962 7.77491 5.5295C8.9228 4.70938 10.3044 4.26302 11.7249 4.25337Z" fill="#EB4335"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_709_8846">
+                                    <rect width="22" height="22" fill="white" transform="translate(0.5)"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </button>
+                    @* <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KQRPfyxlAZLr3CNvnV3YsbIEJSuIcWgDew-InKKMRbyJyF2TVFnnhiJYPRHDGZD5uFa5z4ZORtT9SqunuXrEV0xTFsX9bibvxnezATJRtELsdrSRQaswbWyEGTpxSj00yMhH3nlkyq9k3s1KIZKIrY">  *@
+                </form>
+                <!-- Facebook Button -->
+                <form method="post" action="/Identity/Account/ExternalLogin?returnUrl=%2F" class="flex w-1/2">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" name="provider" value="GitHub"
+                            class="flex w-full items-center justify-center gap-2.5 rounded-lg p-3.5 text-white bg-gray-800 hover:bg-gray-700 transition">
+                        <span>Sign In</span>
+                        <!-- GitHub Logo SVG -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M12 0.297546C5.37 0.297546 0 5.66755 0 12.2975C0 17.6075 3.438 22.0975 8.205 23.7975C8.805 23.8975 9.025 23.5475 9.025 23.2475C9.025 22.9975 9.015 22.2975 9.01 21.2975C5.672 21.9975 4.968 19.6975 4.968 19.6975C4.422 18.2975 3.633 17.9475 3.633 17.9475C2.545 17.2475 3.717 17.2625 3.717 17.2625C4.922 17.3475 5.555 18.4975 5.555 18.4975C6.632 20.2975 8.368 19.7975 9.048 19.4975C9.148 18.6975 9.455 18.1475 9.795 17.8475C7.145 17.5475 4.343 16.4975 4.343 11.7975C4.343 10.4475 4.8 9.34755 5.585 8.49755C5.46 8.19755 5.055 6.92255 5.7 5.19755C5.7 5.19755 6.735 4.87255 9.005 6.29755C9.985 6.02255 11.035 5.88555 12.085 5.88055C13.135 5.88555 14.185 6.02255 15.165 6.29755C17.435 4.87255 18.47 5.19755 18.47 5.19755C19.115 6.92255 18.71 8.19755 18.585 8.49755C19.37 9.34755 19.825 10.4475 19.825 11.7975C19.825 16.5075 17.02 17.5425 14.36 17.8375C14.78 18.2075 15.165 18.9475 15.165 20.0975C15.165 21.7475 15.15 22.9275 15.15 23.2475C15.15 23.5475 15.37 23.9025 15.975 23.7975C20.735 22.0975 24.165 17.6075 24.165 12.2975C24.165 5.66755 18.795 0.297546 12 0.297546Z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-6 text-sm text-center text-gray-400">
+                Already have an account?
+                <a onclick="changeToSignIn()" class="text-green-400 font-medium hover:underline">Sign In</a>
+            </div>
+        </div>
+    </div>
+    
     <script src="~/js/home.js" asp-append-version="true"></script>
 </body>
 </html>
