@@ -7,8 +7,10 @@
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Prn222Project.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/tailwind.css" />
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="bg-white dark:bg-gray-800">
     <header class="sticky top-0 z-50">
@@ -28,8 +30,8 @@
                         </button>
                     </div>
                     <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                        <div class="flex shrink-0 items-center">
-                            <img class="h-8 w-auto" src="~/images/Logo.png" alt="Your Company">
+                        <div class="font-decorative text-xl text-white">
+                            HandWooven
                         </div>
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
@@ -92,8 +94,9 @@
             &copy; 2025 - Prn222Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib//jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         const btn = document.getElementById('toggleDark');

@@ -10,15 +10,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypgo - Buy and Sell Crypto of your choice!</title>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Prn222Project.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/tailwind.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>  
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="~/js/tailwind.config.js"></script>
+    @* <script src="~/js/tailwind.config.js"></script> *@
 </head>
 <body class="font-sans">
     <!-- Navigation -->
@@ -109,7 +108,7 @@
                                     <!-- Left Content -->
                                     <div class="flex-1 text-white relative z-10">
                                         <div class="mb-6">
-                                            <span class="bg-white bg-opacity-90 text-green-700 px-4 py-2 rounded-full text-sm font-bold shadow-lg">🌿 ThủCôngMayTre</span>
+                                            <span class="bg-white bg-opacity-90 text-green-700 px-4 py-2 rounded-full text-sm font-bold shadow-lg">🌿 ThủCôngMâyTre</span>
                                             <span class="eco-badge px-3 py-1 rounded-full text-xs font-bold ml-2 text-white">🍃 ECO SALE</span>
                                         </div>
 
@@ -595,14 +594,15 @@
                 </form>
                 <!-- Facebook Button -->
                 <form method="post" action="/Identity/Account/ExternalLogin?returnUrl=%2F" class="flex w-1/2">
-                    <button type="submit" name="provider" value="Facebook"
-                            class="flex w-full items-center justify-center gap-2.5 rounded-lg p-3.5 text-white bg-[#1c2333] hover:bg-[#2a2f40] transition">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" name="provider" value="GitHub"
+                            class="flex w-full items-center justify-center gap-2.5 rounded-lg p-3.5 text-white bg-gray-800 hover:bg-gray-700 transition">
                         <span>Sign In</span>
-                        <span class="w-[28px] h-[28px] flex items-center justify-center rounded-md bg-[#1877F2]">
-                            <svg width="12" height="20" viewBox="0 0 320 512" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M279.14 288l14.22-92.66h-88.91V127.16c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S293.8 0 262.16 0c-73.81 0-121.36 44.38-121.36 124.72V195.3H89.09V288h51.71v224h100.2V288z" />
-                            </svg>
-                        </span>
+                        <!-- GitHub Logo SVG -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M12 0.297546C5.37 0.297546 0 5.66755 0 12.2975C0 17.6075 3.438 22.0975 8.205 23.7975C8.805 23.8975 9.025 23.5475 9.025 23.2475C9.025 22.9975 9.015 22.2975 9.01 21.2975C5.672 21.9975 4.968 19.6975 4.968 19.6975C4.422 18.2975 3.633 17.9475 3.633 17.9475C2.545 17.2475 3.717 17.2625 3.717 17.2625C4.922 17.3475 5.555 18.4975 5.555 18.4975C6.632 20.2975 8.368 19.7975 9.048 19.4975C9.148 18.6975 9.455 18.1475 9.795 17.8475C7.145 17.5475 4.343 16.4975 4.343 11.7975C4.343 10.4475 4.8 9.34755 5.585 8.49755C5.46 8.19755 5.055 6.92255 5.7 5.19755C5.7 5.19755 6.735 4.87255 9.005 6.29755C9.985 6.02255 11.035 5.88555 12.085 5.88055C13.135 5.88555 14.185 6.02255 15.165 6.29755C17.435 4.87255 18.47 5.19755 18.47 5.19755C19.115 6.92255 18.71 8.19755 18.585 8.49755C19.37 9.34755 19.825 10.4475 19.825 11.7975C19.825 16.5075 17.02 17.5425 14.36 17.8375C14.78 18.2075 15.165 18.9475 15.165 20.0975C15.165 21.7475 15.15 22.9275 15.15 23.2475C15.15 23.5475 15.37 23.9025 15.975 23.7975C20.735 22.0975 24.165 17.6075 24.165 12.2975C24.165 5.66755 18.795 0.297546 12 0.297546Z" />
+                        </svg>
                     </button>
                 </form>
             </div>
