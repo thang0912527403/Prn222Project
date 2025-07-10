@@ -1,0 +1,202 @@
+﻿.gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.crypto-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.crypto-card-dark {
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.floating-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+
+.slide-container {
+    transition: transform 0.5s ease-in-out;
+}
+
+.product-card {
+    background: linear-gradient(135deg, #fefcbf 0%, #fef3c7 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(139, 69, 19, 0.15);
+    transition: transform 0.3s ease;
+    border: 2px solid #d4a574;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(139, 69, 19, 0.25);
+    }
+
+.phone-mockup {
+    background: linear-gradient(145deg, #8b4513, #a0522d);
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(139, 69, 19, 0.3);
+    border: 3px solid #cd853f;
+}
+
+.bamboo-gradient-bg {
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 30%, #84cc16 70%, #a3d300 100%);
+    position: relative;
+}
+
+    .bamboo-gradient-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%), linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.1) 75%), linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.1) 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        opacity: 0.3;
+    }
+
+.craft-card {
+    background: linear-gradient(45deg, #8b4513, #a0522d);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #cd853f;
+}
+
+    .craft-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+        transform: translateX(-100%);
+        animation: shine 3s infinite;
+    }
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.floating {
+    animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+
+    50% {
+        transform: translateY(-5px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-10px) rotate(-1deg);
+    }
+}
+
+.slide-indicator {
+    transition: all 0.3s ease;
+}
+
+    .slide-indicator.active {
+        background: #16a34a;
+        transform: scale(1.3);
+    }
+
+.btn-natural {
+    background: linear-gradient(45deg, #8b4513, #a0522d);
+    transition: all 0.3s ease;
+    border: 2px solid #cd853f;
+}
+
+    .btn-natural:hover {
+        background: linear-gradient(45deg, #a0522d, #8b4513);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);
+    }
+
+.eco-badge {
+    background: linear-gradient(45deg, #22c55e, #16a34a);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.bamboo-texture {
+    background-image: repeating-linear-gradient( 90deg, #22c55e, #22c55e 8px, #16a34a 8px, #16a34a 16px );
+}
+
+.wicker-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(139,69,19,0.3) 1px, transparent 0);
+    background-size: 8px 8px;
+}
+.popover-arrow::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    background: #1f2937; /* bg-gray-800 */
+    border-left: 1px solid #374151; /* border-gray-700 */
+    border-top: 1px solid #374151; /* border-gray-700 */
+    transform: rotate(45deg);
+}

@@ -1,0 +1,168 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-3xl font-bold text-white">3,782</div>
+                        <div class="text-body-dark-2">Customers</div>
+                    </div>
+                    <div class="bg-green-500/20 text-green-500 px-2 py-1 rounded text-sm">
+                        +11.01%
+                    </div>
+                </div>
+                <div class="w-full bg-dark-3 rounded-full h-2 mt-4">
+                    <div class="bg-primary h-2 rounded-full" style="width: 78%"></div>
+                </div>
+            </div>
+
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-3xl font-bold text-white">5,359</div>
+                        <div class="text-body-dark-2">Orders</div>
+                    </div>
+                    <div class="bg-green-500/20 text-green-500 px-2 py-1 rounded text-sm">
+                        +9.05%
+                    </div>
+                </div>
+                <div class="w-full bg-dark-3 rounded-full h-2 mt-4">
+                    <div class="bg-secondary h-2 rounded-full" style="width: 65%"></div>
+                </div>
+            </div>
+
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-3xl font-bold text-white">$20K</div>
+                        <div class="text-body-dark-2">Revenue</div>
+                    </div>
+                    <div class="bg-green-500/20 text-green-500 px-2 py-1 rounded text-sm">
+                        +10%
+                    </div>
+                </div>
+                <div class="w-full bg-dark-3 rounded-full h-2 mt-4">
+                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-3xl font-bold text-white">$3,287</div>
+                        <div class="text-body-dark-2">Today</div>
+                    </div>
+                    <div class="bg-green-500/20 text-green-500 px-2 py-1 rounded text-sm">
+                        +8.2%
+                    </div>
+                </div>
+                <div class="w-full bg-dark-3 rounded-full h-2 mt-4">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 70%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Analytics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Sales Chart -->
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Monthly Sales</h3>
+                    <div class="flex space-x-2">
+                        <button class="text-primary bg-primary/20 px-3 py-1 rounded text-sm">Month</button>
+                        <button class="text-body-dark-2 hover:text-white px-3 py-1 rounded text-sm">Year</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Target Chart -->
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-white">Monthly Target</h3>
+                    <span class="text-body-dark-2 text-sm">Target you've set for each month</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="targetChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics and Demographics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Statistics -->
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <h3 class="text-lg font-semibold text-white mb-4">Statistics</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-primary rounded-full"></div>
+                            <span class="text-body-dark-2">Desktop</span>
+                        </div>
+                        <div class="text-white font-medium">65%</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                            <span class="text-body-dark-2">Tablet</span>
+                        </div>
+                        <div class="text-white font-medium">34%</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <span class="text-body-dark-2">Mobile</span>
+                        </div>
+                        <div class="text-white font-medium">45%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Demographics -->
+            <div class="bg-dark-2 p-6 rounded-lg ">
+                <h3 class="text-lg font-semibold text-white mb-4">Customer Demographics</h3>
+                <p class="text-body-dark-2 text-sm mb-4">Number of customers based on country</p>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-body-dark-2">USA</span>
+                            <span class="text-white">2,379 Customers</span>
+                        </div>
+                        <div class="w-full bg-dark-3 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 79%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-body-dark-2">France</span>
+                            <span class="text-white">589 Customers</span>
+                        </div>
+                        <div class="w-full bg-dark-3 rounded-full h-2">
+                            <div class="bg-secondary h-2 rounded-full" style="width: 23%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-body-dark-2">Germany</span>
+                            <span class="text-white">1,200 Customers</span>
+                        </div>
+                        <div class="w-full bg-dark-3 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="mt-6 bg-green-500/20 border border-green-500/50 rounded-lg p-4">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-check-circle text-green-500"></i>
+                <span class="text-green-500 font-medium">You earn $3287 today, it's higher than last month. Keep up your good work!</span>
+            </div>
+        </div>
