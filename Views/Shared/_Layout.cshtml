@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Prn222Project.ViewModels;
+@using System.Text.Json;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-white dark:bg-gray-800">
-    <header class="sticky top-0 z-50">
+<body class="dark:bg-white bg-gray-900 transition-colors duration-300">
+    <header class="sticky top-0 z-50 border-b-1  transition-colors duration-300">
         <nav class=" dark:bg-white bg-gray-800">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div class="relative flex h-16 items-center justify-between">
@@ -30,15 +32,15 @@
                         </button>
                     </div>
                     <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                        <div class="font-decorative text-xl text-white">
+                        <div onclick="window.location.href='/'" class="font-decorative cursor-pointer text-xl text-white dark:text-black">
                             HandWooven
                         </div>
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
-                                <a href="#" class="rounded-md dark:bg-gray-300 bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</a>
-                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Team</a>
-                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Projects</a>
-                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Calendar</a>
+                                <a href="/products" class="rounded-md dark:bg-gray-300 bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Sản phẩm</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Tin tức</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Về chúng tôi</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 dark:hover:bg-gray-200 hover:bg-gray-700 hover:text-white">Liên hệ</a>
                             </div>
                         </div>
                     </div>
@@ -65,12 +67,57 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                             </svg>
                         </button>
-                        <a type="button" class="relative size-8 rounded-full dark:bg-white bg-gray-800 dark:hover:text-black p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer"
-                                asp-area="Identity" asp-page="/Account/Login">
+                        <button id="userButton" type="button" class="relative rounded-full dark:bg-white bg-gray-800 dark:hover:text-black p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer">
                             <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">View notifications</span>
-                            <i class="fa-solid fa-right-to-bracket"></i>
-                        </a>
+                            <span class="sr-only">Profile</span>
+                            <i class="fa-solid fa-user-tie"></i>
+                        </button>
+                        <!-- Popover -->
+                        <div id="popover"
+                             class="popover-arrow absolute right-0 mt-2 w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-lg opacity-0 invisible transform scale-95 transition-all duration-200 z-10"
+                             style="top: 100%;">
+                            <div class="p-4">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-white">Thang</h3>
+                                        <p class="text-sm text-gray-400">Administrator</p>
+                                    </div>
+                                </div>
+                                <div class="border-t border-gray-700 pt-3">
+                                    <ul class="space-y-1">
+                                        <li>
+                                            <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors">
+                                                <i class="fa-solid fa-user-circle w-4 h-4"></i>
+                                                <span>Profile</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="Product/Cart" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                <span>Cart</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors">
+                                                <i class="fa-solid fa-cog w-4 h-4"></i>
+                                                <span>Settings</span>
+                                            </a>
+                                        </li>
+                                        <li class="border-t border-gray-700 pt-1">
+                                            <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="inline">
+                                                <button type="submit" class="w-full flex items-center space-x-3 px-2 py-2 text-sm text-red-400 hover:bg-red-900/20 rounded-md transition-colors">
+                                                    <i class="fa-solid fa-sign-out-alt w-4 h-4"></i>
+                                                    <span>Logout</span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,11 +136,41 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted bg-white">
-        <div class="container">
-            &copy; 2025 - Prn222Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="snap-start py-12 bg-gray-800 text-white dark:bg-white dark:text-black border-t border-black dark:border-none transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">Handwooven</div>
+                    <p class="text-gray-400">Gieo hồn việt, đan nét quê.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors"></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors">About Us</a></li>
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors">Careers</a></li>
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors">Help Center</a></li>
+                        <li><a href="#" class="dark:hover:text-white hover:text-black transition-colors">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Handwooven. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+    
     <script src="~/lib//jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -116,6 +193,58 @@
             closeIcon.classList.toggle('hidden');
             mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
         });
+    </script>
+    <script>
+                // Popover functionality
+        const userButton = document.getElementById('userButton');
+        const popover = document.getElementById('popover');
+        let isPopoverVisible = false;
+
+        // Toggle popover
+        function togglePopover() {
+            if (isPopoverVisible) {
+                hidePopover();
+            } else {
+                showPopover();
+            }
+        }
+
+        // Show popover
+        function showPopover() {
+            popover.classList.remove('opacity-0', 'invisible', 'scale-95');
+            popover.classList.add('opacity-100', 'visible', 'scale-100');
+            isPopoverVisible = true;
+        }
+
+        // Hide popover
+        function hidePopover() {
+            popover.classList.remove('opacity-100', 'visible', 'scale-100');
+            popover.classList.add('opacity-0', 'invisible', 'scale-95');
+            isPopoverVisible = false;
+        }
+
+        // Event listeners
+        if (userButton) {
+            userButton.addEventListener('click', togglePopover);
+        }
+        // Close popover when clicking outside
+        document.addEventListener('click', function (event) {
+            const userButton = document.getElementById('userButton');
+            const popover = document.getElementById('popover');
+
+            if (userButton && popover &&
+                !userButton.contains(event.target) &&
+                !popover.contains(event.target)) {
+                hidePopover();
+            }
+        });
+        // Close popover on ESC key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && isPopoverVisible) {
+                hidePopover();
+            }
+        });
+
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

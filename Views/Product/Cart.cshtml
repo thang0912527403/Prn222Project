@@ -1,0 +1,91 @@
+﻿@using Prn222Project.Models;
+@model List<CartItem>
+
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-white mb-8">Giỏ hàng của bạn</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="text-center py-16">
+            <p class="text-gray-400 text-xl mb-4">Giỏ hàng của bạn đang trống</p>
+            <a href="/products" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">
+                Tiếp tục mua sắm
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+            <div class="p-6">
+                @foreach (var item in Model)
+                {
+                    <div class="flex items-center justify-between py-4 border-b border-gray-700 last:border-b-0">
+                        <div class="flex-1">
+                            <h3 class="text-white font-semibold">@item.productName</h3>
+                            <p class="text-gray-400 text-sm">Màu: @item.color</p>
+                            <p class="text-gray-400 text-sm">Trang trí: @item.decoration</p>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQuantity(@item.productVariantId, @(item.quantity - 1))"
+                                        class="w-8 h-8 bg-gray-600 text-white rounded hover:bg-gray-500">
+                                    -
+                                </button>
+                                <span class="text-white px-2">@item.quantity</span>
+                                <button onclick="updateQuantity(@item.productVariantId, @(item.quantity + 1))"
+                                        class="w-8 h-8 bg-gray-600 text-white rounded hover:bg-gray-500">
+                                    +
+                                </button>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="text-white font-semibold">@((item.price * item.quantity).ToString("N0")) ₫</p>
+                                <p class="text-gray-400 text-sm">@item.price.ToString("N0") ₫/sản phẩm</p>
+                            </div>
+
+                            <button onclick="removeFromCart(@item.productVariantId)"
+                                    class="text-red-400 hover:text-red-300 ml-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="bg-gray-700 p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xl font-semibold text-white">Tổng cộng:</span>
+                    <span class="text-2xl font-bold text-green-400">
+                        @Model.Sum(x => x.price * x.quantity).ToString("N0") ₫
+                    </span>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="/products" class="cursor-pointer flex-1 bg-gray-600 text-white py-3 rounded-lg text-center hover:bg-gray-500">
+                        Tiếp tục mua sắm
+                    </a>
+                    <a href="/Product/Checkout" class="flex-1 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
+                        Thanh toán
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function updateQuantity(variantId, newQuantity) {
+        if (newQuantity < 0) return;
+
+        window.location.href = `/Product/UpdateCartQuantity?variantId=${variantId}&quantity=${newQuantity}`;
+    }
+
+    function removeFromCart(variantId) {
+        if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+            window.location.href = `/Product/RemoveFromCart?variantId=${variantId}`;
+        }
+    }
+</script>

@@ -14,7 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.AddSession();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
@@ -55,6 +55,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 builder.Services.AddScoped<IApplicationUserServices, ApplicationUserServicesVer1>();
 builder.Services.AddScoped<IApplicationUserDA, ApplicationUserDASQLServer>();
+builder.Services.AddScoped<IProductServices, ProductServicesVer1>();
+builder.Services.AddScoped<IProductDA, ProductDASQLServer>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 var app = builder.Build();
@@ -73,12 +75,17 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+// loi 403 or 404
+app.UseStatusCodePagesWithRedirects("/");
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
+app.MapControllerRoute(
+    name: "products",
+    pattern: "products",
+    defaults: new { controller = "Product", action = "Index" });
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Prn222Project.ViewModels;
+@using Prn222Project.Models;
+@model List<Product>
+<form method="get" asp-action="Index" asp-controller="Product" class="mt-4">
+    <div>
+        <select onchange="this.form.submit()" name="pageSize"
+                id="pageSize" value="@ViewBag.PageSize"
+                class="w-15 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400">
+            <option value="">Số sản phẩm hiển thị</option>
+            <option value="4" selected="@(ViewBag.PageSize == 4)">4</option>
+            <option value="8" selected="@(ViewBag.PageSize == 8)">8</option>
+            <option value="12" selected="@(ViewBag.PageSize == 12)">12</option>
+            <option value="16" selected="@(ViewBag.PageSize == 16)">16</option>
+            <option value="20" selected="@(ViewBag.PageSize == 20)">20</option>
+        </select>
+        <select onchange="this.form.submit()" name="categories"
+                id="categories" value="@ViewBag.cate"
+                class="w-15 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400">
+            <option value="">Category</option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id" selected="@(ViewBag.cate == category.Id)">@category.Name</option>
+            }
+        </select>
+        <input onchange="this.form.submit()" class="mt-3 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400"
+               type="number" min="0" value="@ViewBag.MinPrice" name="minPrice" placeholder="Min Price" />
+        <input onchange="this.form.submit()" class="mt-3 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400"
+               type="number" min="0" value="@ViewBag.MaxPrice" name="maxPrice" placeholder="Max Price" />
+        <input onchange="this.form.submit()" class="mt-3 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400"
+               type="text" value="@ViewBag.Search" name="search" placeholder="Search" />
+    </div>
+    <select onchange="this.form.submit()" name="orderBy"
+            id="categories" 
+            class="w-15 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400">
+        <option value="">Order by</option>
+        <option value="price" selected="@(ViewBag.Orderby == "price")">Price</option>
+        <option value="name" selected="@(ViewBag.Orderby == "name")">Name</option>
+    </select>
+    <select onchange="this.form.submit()" name="orderStatus"
+            id="categories"
+            class="w-15 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400">
+        <option value="Ascending" selected="@(ViewBag.OrderStatus == "Ascending")">Ascending</option>
+        <option value="Descending" selected="@(ViewBag.OrderStatus == "Descending")">Descending</option>
+    </select>
+    <!-- Product Section -->
+    <div class="max-w-6xl mx-auto mt-8 px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div onclick="window.location.href='/Product/Details/@Model[i].Id'" class="cursor-pointer product-card p-2 text-center hover:scale-105 transition-transform shadow rounded-lg border bg-yellow-50">
+                    <img src="@(string.IsNullOrEmpty(Model[i].ImageUrl) ? "./images/no-image.jpg" : Model[i].ImageUrl)"
+                         alt="Product image "
+                         class="w-full h-32 object-cover rounded-md mb-4" />
+                    <div class="font-bold text-lg text-gray-800">@Model[i].Name</div>
+                    <div class="text-green-600 font-semibold text-base">
+                        @Model[i].Price vnd
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="flex justify-center items-center gap-5">
+        <input onchange="this.form.submit()" class="mt-3 w-10 px-1 py-1 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 cursor-pointer transition-colors duration-200 hover:border-gray-400"
+               type="text" value="@ViewBag.Page" name="Page" />
+        <p class="text-white dark:text-black mt-3 ml-5">Total page:@ViewBag.TotalPage</p>
+    </div>
+</form>

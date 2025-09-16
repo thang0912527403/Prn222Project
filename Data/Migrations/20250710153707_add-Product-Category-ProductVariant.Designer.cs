@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Prn222Project.Data;
 
@@ -11,9 +12,11 @@ using Prn222Project.Data;
 namespace Prn222Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250710153707_add-Product-Category-ProductVariant")]
+    partial class addProductCategoryProductVariant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,6 +247,9 @@ namespace Prn222Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -265,49 +271,6 @@ namespace Prn222Project.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Prn222Project.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("order_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productVariant_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("unit_price")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.HasKey("order_id", "productVariant_id");
-
-                    b.HasIndex("productVariant_id");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Prn222Project.Models.Orders", b =>
-                {
-                    b.Property<int>("order_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_id"));
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("order_date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("order_id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("Prn222Project.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -317,9 +280,6 @@ namespace Prn222Project.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -334,9 +294,6 @@ namespace Prn222Project.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -382,9 +339,6 @@ namespace Prn222Project.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("NumberInStock")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberSold")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -454,36 +408,6 @@ namespace Prn222Project.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Prn222Project.Models.OrderDetail", b =>
-                {
-                    b.HasOne("Prn222Project.Models.Orders", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("order_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Prn222Project.Models.ProductVariant", "ProductVariant")
-                        .WithMany()
-                        .HasForeignKey("productVariant_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("ProductVariant");
-                });
-
-            modelBuilder.Entity("Prn222Project.Models.Orders", b =>
-                {
-                    b.HasOne("Prn222Project.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Prn222Project.Models.ProductCategory", b =>
                 {
                     b.HasOne("Prn222Project.Models.Category", "Category")
@@ -517,11 +441,6 @@ namespace Prn222Project.Data.Migrations
             modelBuilder.Entity("Prn222Project.Models.Category", b =>
                 {
                     b.Navigation("ProductCategories");
-                });
-
-            modelBuilder.Entity("Prn222Project.Models.Orders", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Prn222Project.Models.Product", b =>
