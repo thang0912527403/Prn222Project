@@ -1,10 +1,23 @@
 ﻿@using Prn222Project.Models;
 @model List<CartItem>;
+<head>
+    <style>
+        html.dark .about-scope p,
+        html.dark .about-scope li,
+        html.dark .about-scope span {
+            color: #e5e7eb !important;
+        }
+        /* slate-200 */
+        html.dark .about-scope h2 {
+            color: #fff !important;
+        }
+    </style>
+</head>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Checkout Form -->
         <div class="lg:col-span-2">
-            <div class="bg-slate-700/40 backdrop-blur-md rounded-2xl border border-white p-6 md:p-8">
+            <div class="about-scope bg-slate-700/40 backdrop-blur-md rounded-2xl border border-white p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-white mb-8">Thông tin thanh toán</h2>
 
                 <!-- Contact Information -->
@@ -19,11 +32,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-white font-medium mb-2">Họ và tên *</label>
-                            <input type="text" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập họ và tên">
+                            <input type="text" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập họ và tên" required>
                         </div>
                         <div>
                             <label class="block text-white font-medium mb-2">Số điện thoại *</label>
-                            <input type="tel" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập số điện thoại">
+                            <input type="tel" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập số điện thoại" required>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -48,7 +61,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-white font-medium mb-2">Tỉnh/Thành phố *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all">
+                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
                                     <option value="">Chọn tỉnh/thành</option>
                                     <option value="hanoi">Hà Nội</option>
                                     <option value="hcm">TP. Hồ Chí Minh</option>
@@ -57,13 +70,13 @@
                             </div>
                             <div>
                                 <label class="block text-white font-medium mb-2">Quận/Huyện *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all">
+                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
                                     <option value="">Chọn quận/huyện</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-white font-medium mb-2">Phường/Xã *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all">
+                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
                                     <option value="">Chọn phường/xã</option>
                                 </select>
                             </div>

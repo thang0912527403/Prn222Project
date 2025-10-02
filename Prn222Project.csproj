@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Prn222Project-5ad93415-a44e-4541-bf1e-6e868126d057</UserSecretsId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <GenerateMvcApplicationPartAttribute>false</GenerateMvcApplicationPartAttribute>
   </PropertyGroup>
 
   <ItemGroup>

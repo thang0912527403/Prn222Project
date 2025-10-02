@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Prn222Project.Data;
 
@@ -11,9 +12,11 @@ using Prn222Project.Data;
 namespace Prn222Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250919192920_add-productsV2")]
+    partial class addproductsV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -350,7 +353,7 @@ namespace Prn222Project.Data.Migrations
                             ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(922),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9573),
                             Name = "Lược dáng cá heo gỗ bách xanh",
                             Price = 40000m
                         },
@@ -358,10 +361,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 2,
                             Description = "Lược Gỗ Massage Da Đầu Thủ Công - Bí quyết chăm sóc sức khoẻ tự nhiên mỗi ngày!",
-                            ImageUrl = "/images/luoc_ban_tron_bach_xanh.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(940),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9592),
                             Name = "Lược bán tròn bách xanh",
                             Price = 40000m
                         },
@@ -369,10 +372,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 3,
                             Description = "Lược Gỗ Massage Da Đầu Thủ Công - Bí quyết chăm sóc sức khoẻ tự nhiên mỗi ngày!",
-                            ImageUrl = "/images/luoc-go-ca-heo-dan-huong.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(942),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9595),
                             Name = "Lược gỗ cá heo đàn hương",
                             Price = 50000m
                         },
@@ -380,10 +383,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 4,
                             Description = "Giá đỡ điện thoại gỗ - phụ kiện nhỏ gọn nhưng cực kỳ hữu ích cho bàn học, bàn làm việc và không gian sống của bạn.",
-                            ImageUrl = "/images/gia-do-dt-go-soi-nho-trang.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(944),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9598),
                             Name = "Giá đỡ điện thoại gỗ sồi nhỏ trắng",
                             Price = 50000m
                         },
@@ -391,10 +394,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 5,
                             Description = "Giá đỡ điện thoại gỗ - phụ kiện nhỏ gọn nhưng cực kỳ hữu ích cho bàn học, bàn làm việc và không gian sống của bạn.",
-                            ImageUrl = "/images/gia-do-dt-go-oc-cho-nho-nau.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(946),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9601),
                             Name = "Giá đỡ điện thoại gỗ óc chó nhỏ nâu",
                             Price = 63000m
                         },
@@ -402,10 +405,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 6,
                             Description = "Giá đỡ điện thoại gỗ - phụ kiện nhỏ gọn nhưng cực kỳ hữu ích cho bàn học, bàn làm việc và không gian sống của bạn.",
-                            ImageUrl = "/images/gia-do-dt-to-trang-go-soi.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(948),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9604),
                             Name = "Giá đỡ điện thoại to trắng gỗ sồi",
                             Price = 75000m
                         },
@@ -413,10 +416,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 7,
                             Description = "Lược gỗ massage toàn thân - dụng cụ chăm sóc sức khỏe tự nhiên, giúp thư giãn và giảm căng thẳng hiệu quả.",
-                            ImageUrl = "/images/ban-chai-masa.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(951),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9606),
                             Name = "Bàn chải masa",
                             Price = 50000m
                         },
@@ -424,10 +427,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 8,
                             Description = "Bộ thìa đũa gỗ kèm túi vải họa tiết Nhật Bản - lựa chọn hoàn hảo cho những ai yêu thích sự tiện lợi và lối sống xanh.",
-                            ImageUrl = "/images/tui-dung-thia-dua-3-mon.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(953),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9609),
                             Name = "Túi đựng thìa đũa 3 món",
                             Price = 68000m
                         },
@@ -435,10 +438,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 9,
                             Description = "Bộ thìa đũa gỗ kèm túi vải họa tiết Nhật Bản - lựa chọn hoàn hảo cho những ai yêu thích sự tiện lợi và lối sống xanh.",
-                            ImageUrl = "/images/tui-dung-thia-dua-2-mon-tron.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(958),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9611),
                             Name = "Túi đựng thìa đũa 2 món trơn",
                             Price = 43000m
                         },
@@ -446,10 +449,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 10,
                             Description = "Bộ thìa đũa gỗ kèm túi vải họa tiết Nhật Bản - lựa chọn hoàn hảo cho những ai yêu thích sự tiện lợi và lối sống xanh.",
-                            ImageUrl = "/images/tui-dung-thia-dua-2-mon-can-boc.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(960),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9616),
                             Name = "Túi đựng thìa đũa 2 món cán bọc",
                             Price = 50000m
                         },
@@ -457,10 +460,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 11,
                             Description = "Bộ đũa muỗng gỗ kèm hộp đựng tiện lợi - giải pháp gọn gàng, vệ sinh và thân thiện môi trường cho bữa ăn mỗi ngày.",
-                            ImageUrl = "/images/hop-dung-thia-dua-2-mon-can-tron.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(962),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9618),
                             Name = "Hộp đựng thìa đũa 2 món cán trơn",
                             Price = 56000m
                         },
@@ -468,10 +471,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 12,
                             Description = "Bộ đũa muỗng gỗ kèm hộp đựng tiện lợi - giải pháp gọn gàng, vệ sinh và thân thiện môi trường cho bữa ăn mỗi ngày.",
-                            ImageUrl = "/images/hop-dung-thia-dua-2-mon-can-boc.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(963),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9621),
                             Name = "Hộp đựng thìa đũa 2 món cán bọc",
                             Price = 69000m
                         },
@@ -479,10 +482,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 13,
                             Description = "Móc khóa 12 con giáp bằng gỗ 2025 là một phụ kiện thời trang độc đáo, mang đậm nét văn hóa và phong thủy Việt Nam.",
-                            ImageUrl = "/images/moc-treo-12-con-giap.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(966),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9623),
                             Name = "Móc treo 12 con giáp",
                             Price = 79000m
                         },
@@ -490,10 +493,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 14,
                             Description = "Quạt Cầm Tay Bằng Rơm Dệt Thủ Công Ba Tiêu Cổ Trang.",
-                            ImageUrl = "/images/quat-cam-tay.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(968),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9625),
                             Name = "Quạt cầm tay",
                             Price = 90000m
                         },
@@ -501,10 +504,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 15,
                             Description = "Mây Tre Truyền Thống - Rổ Tre Đan Thủ Công 2 Lớp là sản phẩm lưu trữ hoàn hảo cho ngôi nhà của bạn.",
-                            ImageUrl = "/images/ro-tre-dan-2-lop.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(969),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9628),
                             Name = "Rổ tre đan 2 lớp",
                             Price = 103000m
                         },
@@ -512,10 +515,10 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 16,
                             Description = "Dép Cói Thủ Công là sự kết hợp hoàn hảo giữa phong cách truyền thống và sự thoải mái hiện đại.",
-                            ImageUrl = "/images/dep-coi.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(971),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9631),
                             Name = "Dép cói",
                             Price = 51000m
                         },
@@ -523,12 +526,12 @@ namespace Prn222Project.Data.Migrations
                         {
                             Id = 17,
                             Description = "BÌNH GIỮ NHIỆT ĐAN TRE - ĐẸP, BỀN, CHUẨN XANH!",
-                            ImageUrl = "/images/binh-giu-nhiet-dan-tre.PNG",
+                            ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(973),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9633),
                             Name = "Bình giữ nhiệt đan tre ",
-                            Price = 450000m
+                            Price = 45000m
                         },
                         new
                         {
@@ -537,7 +540,7 @@ namespace Prn222Project.Data.Migrations
                             ImageUrl = "/images/luoc_dang_ca_heo_go_bach_xanh.webp",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifiedDate = new DateTime(2025, 9, 20, 2, 35, 37, 241, DateTimeKind.Local).AddTicks(975),
+                            ModifiedDate = new DateTime(2025, 9, 20, 2, 29, 19, 591, DateTimeKind.Local).AddTicks(9636),
                             Name = "Lược bán tròn đàn hương",
                             Price = 45000m
                         });

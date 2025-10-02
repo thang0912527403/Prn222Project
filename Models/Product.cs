@@ -1,4 +1,7 @@
-﻿namespace Prn222Project.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Prn222Project.Models
 {
     public class Product
     {
@@ -9,8 +12,13 @@
         public bool IsActive { get; set; }
         public DateTime ModifiedDate { get; set; }
         public ICollection<ProductVariant> ProductVariants { get; set; } = new List<ProductVariant>();
-        public ICollection<ProductCategory> ProductCategories { get; set; }
+
+        [ValidateNever] 
+        public ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
         public string? ImageUrl { get; set; }
         public decimal Price { get; set; }
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
     }
 }

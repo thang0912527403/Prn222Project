@@ -1,0 +1,223 @@
+﻿/* =========================================
+   TOKENS & HELPERS (giữ đồng bộ toàn site)
+   ========================================= */
+:root {
+    --bg: #F6F3EA; /* nền be nhạt */
+    --card: #EFE7D6; /* thẻ */
+    --line: #CBBE9F; /* viền */
+    --text: #2B2F36; /* chữ */
+    --primary: #3C7A6E; /* xanh lá dịu */
+    --secondary: #C46A3B; /* đất nung */
+    --accent: #D8A542; /* vàng rơm */
+}
+
+html.dark {
+    --bg: #0F172A;
+    --card: #1E2537;
+    --line: #2E374F;
+    --text: #EDEAE2;
+    --primary: #8FBF93;
+    --secondary: #D07B54;
+    --accent: #E6C45E;
+}
+
+.theme-bg {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.theme-card {
+    background: var(--card);
+    color: var(--text);
+}
+
+.theme-line {
+    border-color: var(--line) !important;
+}
+
+.theme-text {
+    color: var(--text) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* =========================================
+   HERO V1 – xanh đậm + viền vàng rơm
+   ========================================= */
+.hero-green {
+    background: linear-gradient(135deg,#2f6a61 0%, #204b43 100%);
+    box-shadow: 0 24px 48px rgba(0,0,0,.25);
+    border-radius: 1rem;
+}
+
+.ring-hero {
+    outline: 4px solid var(--accent);
+    outline-offset: -4px;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.badge-light {
+    background: rgba(255,255,255,.92);
+    color: #0f3b33;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .85rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+/* nút trắng nổi trên nền xanh */
+.btn-white {
+    background: #fff;
+    color: #1f3d36;
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.15);
+    transition: transform .15s ease, filter .15s ease;
+}
+
+    .btn-white:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+    }
+
+/* =========================================
+   Card “điện thoại” bên phải
+   ========================================= */
+.phone-card {
+    background: #fff7e6; /* be ngà hợp tone mây tre */
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+
+    .phone-row {
+        display: flex;
+        gap: .75rem;
+        align-items: center;
+        padding: .55rem .65rem;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.06);
+        border-radius: .75rem;
+        margin-bottom: .6rem;
+    }
+
+        .phone-row img {
+            width: 64px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: .5rem;
+        }
+
+/* Dark-mode tinh chỉnh một chút cho viền/đổ bóng */
+html.dark .badge-light {
+    color: #0f3b33;
+}
+
+html.dark .phone-card {
+    /* vẫn dùng be ngà để tương phản đẹp trên hero xanh đậm */
+    border-color: rgba(255,255,255,.08);
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+/* hiệu ứng nổi mượt */
+.floating {
+    animation: hw-float 6s ease-in-out infinite;
+}
+
+@keyframes hw-float {
+    0% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-6px)
+    }
+
+    100% {
+        transform: translateY(0)
+    }
+}
+/* ===== Hero spacing & layout ===== */
+.hero-pad {
+    padding: 2rem;
+}
+
+@media (min-width:1024px) {
+    .hero-pad {
+        padding: 2.5rem 2.75rem;
+    }
+}
+
+.hero-inner {
+    display: grid;
+    gap: 1.75rem; /* bớt sát nhau */
+}
+
+@media (min-width:1024px) {
+    .hero-inner {
+        grid-template-columns: 1fr 420px; /* trái / card phải */
+        gap: 3rem; /* nới gap lớn */
+    }
+}
+
+/* ===== Categories: ngang hàng & responsive ===== */
+.hero-cat-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* mobile 1 cột */
+    gap: 1rem;
+}
+
+@media (min-width:640px) { /* ≥sm: 3 cột */
+    .hero-cat-grid {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+        gap: 1rem;
+    }
+}
+
+.hero-cat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    text-align: center;
+    transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+    .hero-cat:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,.12);
+        box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+
+    .hero-cat .kicker {
+        opacity: .85;
+        font-size: .9rem;
+        margin-top: .25rem;
+    }
+
+    .hero-cat .icon-badge {
+        width: 48px;
+        height: 48px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FFBF2A;
+        box-shadow: 0 4px 12px rgba(0,0,0,.18);
+    }

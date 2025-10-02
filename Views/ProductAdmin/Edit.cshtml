@@ -1,0 +1,66 @@
+﻿@model Prn222Project.Models.Product
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+}
+
+<div class="max-w-3xl mx-auto bg-dark-2 p-6 rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-semibold mb-6 text-white tracking-wide flex items-center gap-2">
+        <i class="fa-solid fa-pen-to-square text-indigo-400"></i>
+        Chỉnh sửa sản phẩm
+    </h1>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="space-y-6">
+        <input type="hidden" asp-for="Id" />
+
+        <div>
+            <label asp-for="Name" class="block text-sm font-medium text-gray-300 mb-1"></label>
+            <input asp-for="Name"
+                   class="w-full p-3 rounded-lg bg-dark-3 text-white border border-gray-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+            <span asp-validation-for="Name" class="text-red-400 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Price" class="block text-sm font-medium text-gray-300 mb-1"></label>
+            <input asp-for="Price" type="number" step="0.01"
+                   class="w-full p-3 rounded-lg bg-dark-3 text-white border border-gray-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+            <span asp-validation-for="Price" class="text-red-400 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description" class="block text-sm font-medium text-gray-300 mb-1"></label>
+            <textarea asp-for="Description" rows="4"
+                      class="w-full p-3 rounded-lg bg-dark-3 text-white border border-gray-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"></textarea>
+            <span asp-validation-for="Description" class="text-red-400 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Ảnh hiện tại</label>
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="h-20 rounded-lg shadow mb-3" />
+
+            <label asp-for="ImageFile" class="block text-sm font-medium text-gray-300 mb-1">Cập nhật ảnh mới</label>
+            <input asp-for="ImageFile" type="file"
+                   class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4
+                          file:rounded-lg file:border-0 file:text-sm file:font-semibold
+                          file:bg-indigo-600 file:text-white hover:file:bg-indigo-500" />
+            <span asp-validation-for="ImageFile" class="text-red-400 text-sm"></span>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4">
+            <a asp-action="Index"
+               class="px-4 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-500 transition">
+                Quay lại
+            </a>
+            <button type="submit"
+                    class="px-5 py-2 rounded-lg bg-indigo-600 text-white font-medium shadow hover:bg-indigo-500 transition">
+                Lưu thay đổi
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

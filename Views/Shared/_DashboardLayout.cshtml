@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Prn222Project</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet">
@@ -36,13 +36,13 @@
             <nav class="px-4 pb-6">
                 <ul class="space-y-2">
                     <li>
-                        <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-primary/20 text-primary border-l-4 border-primary">
+                        <a href="Dashboard" class="flex items-center space-x-3 p-3 rounded-lg bg-primary/20 text-primary border-l-4 border-primary">
                             <i class="fas fa-chart-pie w-5"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-body-dark hover:bg-dark-3 hover:text-white transition-colors">
+                        <a href="Home/Test" class="flex items-center space-x-3 p-3 rounded-lg text-body-dark hover:bg-dark-3 hover:text-white transition-colors">
                             <i class="fas fa-calendar w-5"></i>
                             <span>Calendar</span>
                         </a>
@@ -69,6 +69,13 @@
                         <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-body-dark hover:bg-dark-3 hover:text-white transition-colors">
                             <i class="fas fa-table w-5"></i>
                             <span>Tables</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ProductAdmin/Index"
+                           class="flex items-center space-x-3 p-3 rounded-lg text-body-dark hover:bg-dark-3 hover:text-white transition-colors">
+                            <i class="fas fa-table w-5"></i>
+                            <span>Products</span>
                         </a>
                     </li>
                     <li>
@@ -179,7 +186,7 @@
 
             menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
-                    e.preventDefault();
+                    //e.preventDefault();
 
                     // Remove active class from all items
                     menuItems.forEach(i => {

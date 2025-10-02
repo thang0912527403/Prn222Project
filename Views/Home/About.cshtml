@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Về chúng tôi";
+}
+
+<div class="container max-w-6xl mx-auto px-4 lg:px-8 py-10 text-gray-900 dark:text-slate-100">
+    <header class="mb-8 text-center">
+        <br/>
+        <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white">HandWoven Home</h1>
+        <p class="mt-3 text-gray-600 dark:text-slate-300">
+            GIEO HỒN VIỆT - ĐAN NÉT QUÊ
+        </p>
+        <style>
+            html.dark .about-scope p,
+            html.dark .about-scope li,
+            html.dark .about-scope span {
+                color: #e5e7eb !important;
+            }
+            /* slate-200 */
+            html.dark .about-scope h2 {
+                color: #fff !important;
+            }
+        </style>
+    </header>
+
+    <section class="space-y-8">
+        <!-- Giới thiệu (trên) -->
+        <div class="about-scope bg-amber-50/50 dark:bg-slate-800/40
+                    border border-amber-300/40 dark:border-slate-700/60
+                    rounded-2xl p-6 shadow-sm
+                    max-w-3xl mx-auto">
+            <h2 class="text-xl font-semibold text-center">Câu chuyện</h2>
+
+            <p class="mt-2 text-gray-700 dark:text-slate-200">
+                Handwoven Home được ra đời với mong muốn lưu giữ và lan tỏa những giá trị văn hóa truyền thống
+                thông qua các sản phẩm thủ công từ tre, mây, cói và gỗ tự nhiên.
+            </p>
+
+            <ul class="mt-4 list-disc pl-5 text-gray-700 dark:text-slate-200 space-y-3">
+                <li>
+                    Chúng tôi tin rằng, mỗi sản phẩm không chỉ là một vật dụng hàng ngày mà còn là một phần ký ức,
+                    một mảnh ghép của văn hóa Việt được chắt chiu từ bàn tay khéo léo và tâm huyết của người thợ thủ công.
+                </li>
+                <li>
+                    Sứ mệnh của chúng tôi không chỉ dừng lại ở việc mang đến sản phẩm đẹp, bền, an toàn và thân thiện môi trường,
+                    mà còn góp phần khẳng định bản sắc Việt trên hành trình hội nhập.
+                </li>
+                <li>
+                    Chúng tôi mong muốn mỗi sản phẩm khi đến tay khách hàng sẽ trở thành cầu nối giữa quá khứ và hiện tại,
+                    giữa con người và thiên nhiên, và giữa nét đẹp truyền thống với cuộc sống hiện đại.
+                </li>
+                <li>
+                    Với Handwoven Home, bạn không chỉ sở hữu một sản phẩm, mà còn đồng hành cùng chúng tôi trong hành trình gìn giữ
+                    và lan tỏa hồn quê Việt Nam.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bản đồ (dưới) -->
+        <div class="bg-white dark:bg-slate-800/70 border border-gray-200 dark:border-slate-700 rounded-2xl p-4 shadow">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-xl font-semibold">Vị trí của chúng tôi</h2>
+                <div class="flex gap-2">
+                    <button id="btnLocate" class="px-3 h-9 rounded-md bg-emerald-600 text-white hover:bg-emerald-700">Lấy vị trí</button>
+                    <button id="btnReset" class="px-3 h-9 rounded-md border border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-700">Về vị trí mặc định</button>
+                </div>
+            </div>
+            <div id="map" class="w-full rounded-xl border border-gray-200 dark:border-slate-700" style="height: 500px;"></div>
+            <div class="mt-2 text-xs text-gray-500 dark:text-slate-400">
+                Map © <a class="underline" href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Leaflet CSS/JS (CDN) -->
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<script>
+    // Tọa độ mặc định (FPT University Hà Nội – Hòa Lạc, bạn đổi nếu cần)
+    const DEFAULT_POS = { lat: 21.0136, lng: 105.5259 };
+    let map, userMarker, accuracyCircle;
+
+    function initMap() {
+        map = L.map('map', { zoomControl: true }).setView([DEFAULT_POS.lat, DEFAULT_POS.lng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: ''
+        }).addTo(map);
+
+        L.marker([DEFAULT_POS.lat, DEFAULT_POS.lng]).addTo(map)
+            .bindPopup('Vị trí mặc định (có thể là cửa hàng)').openPopup();
+    }
+
+    function locate() {
+        if (!navigator.geolocation) {
+            alert('Trình duyệt của bạn không hỗ trợ định vị.');
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude, longitude, accuracy } = pos.coords;
+
+                if (!userMarker) {
+                    userMarker = L.marker([latitude, longitude]).addTo(map).bindPopup('Bạn đang ở đây');
+                } else {
+                    userMarker.setLatLng([latitude, longitude]);
+                }
+
+                if (accuracyCircle) accuracyCircle.remove();
+                accuracyCircle = L.circle([latitude, longitude], {
+                    radius: accuracy || 50,
+                    color: '#2563eb',
+                    weight: 1,
+                    fillColor: '#93c5fd',
+                    fillOpacity: 0.25
+                }).addTo(map);
+
+                map.setView([latitude, longitude], 16, { animate: true });
+                userMarker.openPopup();
+            },
+            (err) => {
+                console.warn(err);
+                alert('Không thể lấy vị trí. Vui lòng kiểm tra quyền định vị hoặc thử lại.');
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    }
+
+    function resetView() {
+        map.setView([DEFAULT_POS.lat, DEFAULT_POS.lng], 13, { animate: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+        document.getElementById('btnLocate')?.addEventListener('click', locate);
+        document.getElementById('btnReset')?.addEventListener('click', resetView);
+    });
+</script>

@@ -28,8 +28,8 @@ builder.Services.AddAuthentication()
        options.ClientSecret = googleAuthNSection["ClientSecret"];
        options.Events.OnRemoteFailure = context =>
        {
-           context.HandleResponse(); 
-           context.Response.Redirect("/Home/Index"); 
+           context.HandleResponse();
+           context.Response.Redirect("/Home/Index");
            return Task.CompletedTask;
        };
    })
@@ -42,10 +42,11 @@ builder.Services.AddAuthentication()
        options.Events.OnRemoteFailure = context =>
        {
            context.HandleResponse();
-           context.Response.Redirect("/Home/Index"); 
+           context.Response.Redirect("/Home/Index");
            return Task.CompletedTask;
        };
-   });
+   })
+   ;
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Authentication/Login";

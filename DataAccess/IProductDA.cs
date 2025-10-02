@@ -11,5 +11,8 @@ namespace Prn222Project.DataAccess
         List<Category> GetAllCategories();  
         Product GetProductById(int id);
         ProductVariant GetProductVariantById(int id);
+        void AddProduct(Product product);
+        void UpdateProduct(Product product); 
+        void DeleteProduct(int id);
     }
 }
