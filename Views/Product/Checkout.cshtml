@@ -1,67 +1,99 @@
 ﻿@using Prn222Project.Models;
-@model List<CartItem>;
+@model List<CartItem>
+
 <head>
     <style>
-        html.dark .about-scope p,
-        html.dark .about-scope li,
-        html.dark .about-scope span {
-            color: #e5e7eb !important;
+        /* helpers cho trang: theo token đã có trong theme.css */
+        .text-theme {
+            color: var(--text) !important;
         }
-        /* slate-200 */
-        html.dark .about-scope h2 {
-            color: #fff !important;
+
+        .text-muted {
+            color: color-mix(in srgb, var(--text) 70%, transparent) !important;
+        }
+
+        .theme-input {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: .5rem;
+        }
+
+            .theme-input:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px color-mix(in srgb, var(--line) 30%, transparent);
+                border-color: var(--line);
+            }
+
+            .theme-input::placeholder {
+                color: color-mix(in srgb, var(--text) 55%, transparent);
+                opacity: .9;
+            }
+
+        /* phạm vi nội dung riêng để có thể ép màu tiêu đề nếu cần */
+        .about-scope h2, .about-scope h3, .about-scope h4 {
+            color: var(--text) !important;
+        }
+
+        .about-scope p, .about-scope li, .about-scope span {
+            color: var(--text) !important;
         }
     </style>
 </head>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-theme">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Checkout Form -->
         <div class="lg:col-span-2">
-            <div class="about-scope bg-slate-700/40 backdrop-blur-md rounded-2xl border border-white p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-white mb-8">Thông tin thanh toán</h2>
+            <div class="about-scope theme-card rounded-2xl border theme-line p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-8">Thông tin thanh toán</h2>
 
                 <!-- Contact Information -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                         </svg>
                         Thông tin liên hệ
                     </h3>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-white font-medium mb-2">Họ và tên *</label>
-                            <input type="text" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập họ và tên" required>
+                            <label class="block font-medium mb-2">Họ và tên *</label>
+                            <input type="text" class="w-full px-4 py-3 theme-input" placeholder="Nhập họ và tên" required>
                         </div>
                         <div>
-                            <label class="block text-white font-medium mb-2">Số điện thoại *</label>
-                            <input type="tel" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập số điện thoại" required>
+                            <label class="block font-medium mb-2">Số điện thoại *</label>
+                            <input type="tel" class="w-full px-4 py-3 theme-input" placeholder="Nhập số điện thoại" required>
                         </div>
                     </div>
+
                     <div class="mt-4">
-                        <label class="block text-white font-medium mb-2">Email *</label>
-                        <input type="email" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Nhập địa chỉ email">
+                        <label class="block font-medium mb-2">Email *</label>
+                        <input type="email" class="w-full px-4 py-3 theme-input" placeholder="Nhập địa chỉ email">
                     </div>
                 </div>
 
                 <!-- Shipping Address -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                         </svg>
                         Địa chỉ giao hàng
                     </h3>
+
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-white font-medium mb-2">Địa chỉ *</label>
-                            <input type="text" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Số nhà, tên đường">
+                            <label class="block font-medium mb-2">Địa chỉ *</label>
+                            <input type="text" class="w-full px-4 py-3 theme-input" placeholder="Số nhà, tên đường">
                         </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-white font-medium mb-2">Tỉnh/Thành phố *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
+                                <label class="block font-medium mb-2">Tỉnh/Thành phố *</label>
+                                <select class="w-full px-4 py-3 theme-input" required>
                                     <option value="">Chọn tỉnh/thành</option>
                                     <option value="hanoi">Hà Nội</option>
                                     <option value="hcm">TP. Hồ Chí Minh</option>
@@ -69,14 +101,14 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-white font-medium mb-2">Quận/Huyện *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
+                                <label class="block font-medium mb-2">Quận/Huyện *</label>
+                                <select class="w-full px-4 py-3 theme-input" required>
                                     <option value="">Chọn quận/huyện</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-white font-medium mb-2">Phường/Xã *</label>
-                                <select class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" required>
+                                <label class="block font-medium mb-2">Phường/Xã *</label>
+                                <select class="w-full px-4 py-3 theme-input" required>
                                     <option value="">Chọn phường/xã</option>
                                 </select>
                             </div>
@@ -86,26 +118,28 @@
 
                 <!-- Payment Method -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                             <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
                         </svg>
                         Phương thức thanh toán
                     </h3>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <label class="payment-method cursor-pointer">
                             <input type="radio" name="payment" value="cod" class="sr-only" checked>
-                            <div class="p-4 bg-white border-2 border-white rounded-xl transition-all hover:border-white/50 hover:-translate-y-1 has-[:checked]:border-white has-[:checked]:bg-white/10">
+                            <div class="p-4 theme-card border-2 theme-line rounded-xl transition-all
+                          hover:translate-y-[-2px] has-[:checked]:border-emerald-400 has-[:checked]:bg-emerald-400/10">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <svg class="w-6 h-6 text-white mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-6 h-6 mr-3 text-theme" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" />
                                         </svg>
                                         <span class="font-medium">Thanh toán khi nhận hàng</span>
                                     </div>
-                                    <div class="w-4 h-4 border-2 border-white rounded-full flex items-center justify-center">
-                                        <div class="w-2 h-2 bg-white rounded-full opacity-0 transition-opacity has-[:checked]:opacity-100"></div>
+                                    <div class="w-4 h-4 rounded-full border-2 theme-line flex items-center justify-center">
+                                        <div class="w-2 h-2 rounded-full bg-emerald-400 opacity-0 has-[:checked]:opacity-100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -113,15 +147,16 @@
 
                         <label class="payment-method cursor-pointer">
                             <input type="radio" name="payment" value="bank" class="sr-only">
-                            <div class="p-4 bg-white border-2 border-white rounded-xl transition-all hover:border-white/50 hover:-translate-y-1 has-[:checked]:border-white has-[:checked]:bg-white/10">
+                            <div class="p-4 theme-card border-2 theme-line rounded-xl transition-all
+                          hover:translate-y-[-2px] has-[:checked]:border-emerald-400 has-[:checked]:bg-emerald-400/10">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <svg class="w-6 h-6 text-white mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-6 h-6 mr-3 text-theme" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm12 4l-8 4-8-4v6h16V8z" />
                                         </svg>
                                         <span class="font-medium">Chuyển khoản ngân hàng</span>
                                     </div>
-                                    <div class="w-4 h-4 border-2 border-white rounded-full"></div>
+                                    <div class="w-4 h-4 rounded-full border-2 theme-line"></div>
                                 </div>
                             </div>
                         </label>
@@ -130,69 +165,75 @@
 
                 <!-- Order Notes -->
                 <div class="mb-8">
-                    <label class="block text-white font-medium mb-2">Ghi chú đơn hàng</label>
-                    <textarea rows="3" class="w-full px-4 py-3 bg-white border border-white rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white transition-all" placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."></textarea>
+                    <label class="block font-medium mb-2">Ghi chú đơn hàng</label>
+                    <textarea rows="3" class="w-full px-4 py-3 theme-input"
+                              placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."></textarea>
                 </div>
             </div>
         </div>
 
         <!-- Order Summary -->
         <div class="lg:col-span-1">
-            <div class="bg-slate-700/40 backdrop-blur-md rounded-2xl border border-white p-6 sticky top-24">
-                <h3 class="text-xl font-bold text-white mb-6">Đơn hàng của bạn</h3>
-                @foreach (var item in @Model)
+            <div class="theme-card rounded-2xl border theme-line p-6 sticky top-24">
+                <h3 class="text-xl font-bold mb-6">Đơn hàng của bạn</h3>
+
+                @foreach (var item in Model ?? new List<CartItem>())
                 {
-                    <!-- Order Items -->
                     <div class="space-y-4 mb-6">
-                        <div class="flex items-center justify-between py-4 border-b border-white/10">
+                        <div class="flex items-center justify-between py-4 border-b theme-line/10">
                             <div class="flex items-center">
-                                <div class="w-16 h-16 bg-slate-600 rounded-lg mr-4 flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <div class="w-16 h-16 rounded-lg mr-4 theme-card border theme-line flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-theme" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-white">@item.productName</h4>
-                                    <p class="text-sm text-white">Màu: @item.color</p>
-                                    <p class="text-sm text-white">Trang trí: @item.color</p>
-                                    <p class="text-sm text-white">Số lượng: @item.quantity</p>
+                                    <h4 class="font-medium">@item.productName</h4>
+                                    <p class="text-sm text-muted">Màu: @item.color</p>
+                                    <p class="text-sm text-muted">Trang trí: @item.decoration</p>
+                                    <p class="text-sm text-muted">Số lượng: @item.quantity</p>
                                 </div>
                             </div>
-                            <div class="text-white font-semibold">@(item.price * item.quantity) đ</div>
+                            <div class="font-semibold">@((item.price * item.quantity).ToString("N0")) đ</div>
                         </div>
                     </div>
                 }
+
                 <!-- Order Total -->
-                <div class="space-y-3 pt-4 border-t-2 border-white">
-                    <div class="flex justify-between text-white">
+                <div class="space-y-3 pt-4 border-t theme-line">
+                    <div class="flex justify-between">
                         <span>Tổng:</span>
                         <span>@ViewBag.totalPrice đ</span>
                     </div>
-                    <div class="flex justify-between text-white">
+                    <div class="flex justify-between">
                         <span>Phí vận chuyển:</span>
                         <span>0 đ</span>
                     </div>
-                    <div class="flex justify-between text-white">
+                    <div class="flex justify-between">
                         <span>Giảm giá:</span>
-                        <span class="text-red-400">-0 đ</span>
+                        <span class="text-rose-500 dark:text-rose-400">-0 đ</span>
                     </div>
-                    <div class="flex justify-between text-xl font-bold text-white pt-3 border-t border-white">
+                    <div class="flex justify-between text-xl font-bold pt-3 border-t theme-line">
                         <span>Tổng cộng:</span>
-                        <span>@ViewBag.totalPrice đ đ</span>
+                        <span>@ViewBag.totalPrice đ</span>
                     </div>
                 </div>
 
                 <!-- Checkout Button -->
                 <form method="post" action="/Product/CheckoutCart" onsubmit="return processOrder(event)">
-                    <button type="submit" class="w-full cursor-pointer mt-6 bg-gradient-to-r from-white to-teal-500 text-white font-bold py-4 px-6 rounded-xl hover:-translate-y-1 hover:shadow-lg hover:shadow-white transition-all duration-300" onclick="processOrder()">
+                    <button type="submit"
+                            class="w-full cursor-pointer mt-6 rounded-xl px-6 py-4 font-semibold
+                         bg-emerald-600 text-white hover:bg-emerald-700
+                         dark:bg-emerald-500 dark:hover:bg-emerald-600
+                         transition-all duration-200 theme-text">
                         Đặt hàng
                     </button>
                 </form>
 
                 <!-- Security Info -->
-                <div class="mt-6 p-4 bg-white/10 border border-white rounded-lg">
-                    <div class="flex items-center justify-center text-sm text-white">
-                        <svg class="w-4 h-4 mr-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="mt-6 p-4 rounded-lg theme-card border theme-line text-sm text-muted">
+                    <div class="flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                         </svg>
                         Thông tin của bạn được bảo mật
@@ -204,50 +245,36 @@
 </div>
 
 <script>
-    // Handle payment method selection
-    document.addEventListener('DOMContentLoaded', function() {
-        const paymentMethods = document.querySelectorAll('input[name="payment"]');
-        paymentMethods.forEach(method => {
-            method.addEventListener('change', function() {
-                // Remove active state from all methods
-                document.querySelectorAll('.payment-method div').forEach(div => {
-                    div.classList.remove('border-white', 'bg-white/10');
-                    div.classList.add('border-white');
-                });
-
-                // Add active state to selected method
-                if (this.checked) {
-                    const parentDiv = this.parentElement.querySelector('div');
-                    parentDiv.classList.remove('border-white');
-                    parentDiv.classList.add('border-white', 'bg-white');
-                }
-            });
+    // Toggle trạng thái thẻ phương thức thanh toán
+    document.addEventListener('DOMContentLoaded', function () {
+      const methods = document.querySelectorAll('input[name="payment"]');
+      methods.forEach(m => {
+        m.addEventListener('change', () => {
+          document.querySelectorAll('.payment-method > div').forEach(div => {
+            div.classList.remove('border-emerald-400');
+            div.classList.remove('bg-emerald-400/10');
+          });
+          const active = m.parentElement.querySelector('div');
+          active.classList.add('border-emerald-400', 'bg-emerald-400/10');
         });
+      });
 
-        // Set initial state
-        const checkedMethod = document.querySelector('input[name="payment"]:checked');
-        if (checkedMethod) {
-            const parentDiv = checkedMethod.parentElement.querySelector('div');
-            parentDiv.classList.remove('border-white');
-            parentDiv.classList.add('border-white', 'bg-white');
-        }
+      // set trạng thái ban đầu
+      const checked = document.querySelector('input[name="payment"]:checked');
+      if (checked) {
+        const active = checked.parentElement.querySelector('div');
+        active.classList.add('border-emerald-400', 'bg-emerald-400/10');
+      }
     });
 
-        function processOrder(event) {
-        event.preventDefault(); // Ngăn form submit ngay
-
-        const button = event.submitter || event.target.querySelector('button[type="submit"]');
-        const originalText = button.textContent;
-
-        button.disabled = true;
-        button.textContent = 'Đang xử lý...';
-        button.classList.add('opacity-75');
-
-        setTimeout(() => {
-            alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.');
-            event.target.submit(); // Submit form sau khi xử lý
-        }, 2000);
-
-        return false; // Ngăn submit ngay lập tức
+    function processOrder(event) {
+      event.preventDefault();
+      const btn = event.submitter || event.target.querySelector('button[type="submit"]');
+      const txt = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Đang xử lý...';
+      btn.classList.add('opacity-75');
+      setTimeout(() => { event.target.submit(); }, 1200);
+      return false;
     }
 </script>

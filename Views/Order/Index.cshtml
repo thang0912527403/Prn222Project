@@ -1,0 +1,128 @@
+﻿@model List<Prn222Project.Models.Orders>
+@using System.Globalization
+<br />
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+
+    decimal TotalSpent = Model.Sum(o => o.OrderDetails.Sum(d => d.unit_price * d.quantity));
+    int TotalItems = Model.Sum(o => o.OrderDetails.Sum(d => d.quantity));
+    string VND(decimal v) => v.ToString("N0", new CultureInfo("vi-VN"));
+
+    string StatusBadge(string status)
+    {
+        status = (status ?? "").Trim().ToLower();
+        return status switch
+        {
+            "pending" => "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
+            "paid" => "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
+            "shipping" => "bg-purple-50 text-purple-700 ring-1 ring-purple-200",
+            "completed" => "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+            "canceled" => "bg-rose-50 text-rose-700 ring-1 ring-rose-200",
+            _ => "bg-gray-50 text-gray-700 ring-1 ring-gray-200"
+        };
+    }
+}
+
+<div class="container max-w-6xl mx-auto px-4 lg:px-8 py-10 text-gray-900">
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-extrabold tracking-tight text-theme">Đơn hàng của tôi</h1>
+        <p class="text-gray-500 mt-1">Theo dõi trạng thái và xem lại các đơn đã đặt.</p>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-5">
+            <div class="text-sm text-gray-500">Tổng đơn</div>
+            <div class="mt-1 text-2xl font-bold">@Model.Count</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-5">
+            <div class="text-sm text-gray-500">Tổng sản phẩm</div>
+            <div class="mt-1 text-2xl font-bold">@TotalItems</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-5">
+            <div class="text-sm text-gray-500">Đã chi</div>
+            <div class="mt-1 text-2xl font-bold">@VND(TotalSpent) ₫</div>
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <!-- Empty state -->
+        <div class="bg-white border border-dashed border-gray-300 rounded-2xl p-10 text-center">
+            <div class="mx-auto w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center">
+                <svg class="w-7 h-7 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 7h12m-6 0a2 2 0 100-4 2 2 0 000 4z" />
+                </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold">Chưa có đơn hàng</h3>
+            <p class="mt-1 text-gray-500">Bắt đầu mua sắm và quay lại đây để xem lịch sử nhé.</p>
+            <a href="/Product" class="mt-4 inline-flex items-center px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-800">
+                Mua sắm ngay
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- Table (desktop) + Card list (mobile) -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+            <div class="hidden md:block overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-gray-50 text-gray-600 sticky top-0">
+                        <tr>
+                            <th class="px-5 py-3 text-left font-semibold">Mã đơn</th>
+                            <th class="px-5 py-3 text-left font-semibold">Ngày đặt</th>
+                            <th class="px-5 py-3 text-left font-semibold">Trạng thái</th>
+                            <th class="px-5 py-3 text-left font-semibold">Sản phẩm</th>
+                            <th class="px-5 py-3 text-right font-semibold">Tổng tiền</th>
+                            <th class="px-5 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @foreach (var o in Model.OrderByDescending(x => x.order_date))
+                        {
+                            var qty = o.OrderDetails.Sum(d => d.quantity);
+                            var total = o.OrderDetails.Sum(d => d.unit_price * d.quantity);
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-5 py-3 font-semibold text-gray-900">#@o.order_id</td>
+                                <td class="px-5 py-3">@o.order_date.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="px-5 py-3 text-gray-700">@qty sp</td>
+                                <td class="px-5 py-3 text-right font-bold">@VND(total) ₫</td>
+                                <td class="px-5 py-3 text-right">
+                                    <a class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+                                       href="@Url.Action("Details", "Order", new { id = o.order_id })">
+                                        Xem
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile cards -->
+            <div class="md:hidden divide-y divide-gray-100">
+                @foreach (var o in Model.OrderByDescending(x => x.order_date))
+                {
+                    var qty = o.OrderDetails.Sum(d => d.quantity);
+                    var total = o.OrderDetails.Sum(d => d.unit_price * d.quantity);
+                    <a href="@Url.Action("Details", "Order", new { id = o.order_id })"
+                       class="block px-5 py-4 hover:bg-gray-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-semibold">Đơn #@o.order_id</div>
+                                <div class="text-xs text-gray-500 mt-0.5">@o.order_date.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold">@VND(total) ₫</div>
+                                <div class="text-xs text-gray-500">@qty sp</div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</div>

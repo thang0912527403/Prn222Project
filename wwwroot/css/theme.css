@@ -1,6 +1,4 @@
-﻿/* =========================================
-   TOKENS & HELPERS (giữ đồng bộ toàn site)
-   ========================================= */
+﻿
 :root {
     --bg: #F6F3EA; /* nền be nhạt */
     --card: #EFE7D6; /* thẻ */
@@ -90,9 +88,6 @@ html.dark {
         filter: brightness(1.03);
     }
 
-/* =========================================
-   Card “điện thoại” bên phải
-   ========================================= */
 .phone-card {
     background: #fff7e6; /* be ngà hợp tone mây tre */
     border: 1px solid rgba(0,0,0,.06);

@@ -1,11 +1,27 @@
 ﻿@using Prn222Project.ViewModels;
 @using System.Text.Json;
+@{
+    // (tuỳ chọn) đọc cookie để SSR đúng theme ngay từ server, tránh nháy màu
+    var themeCookie = Context.Request.Cookies["theme"];
+    var isDark = string.Equals(themeCookie, "dark", StringComparison.OrdinalIgnoreCase);
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <script>
+        (function () {
+          try {
+            var saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+            var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var dark = saved ? (saved === 'dark') : prefers;
+            document.documentElement.classList.toggle('dark', dark);
+          } catch(e) {}
+        })();
+    </script>
+
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Prn222Project.styles.css" asp-append-version="true" />
@@ -17,7 +33,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </head>
-<body class="theme-bg">
+<body class="theme-bg theme-text">
     <header class="sticky top-0 z-50 border-b theme-line">
         <nav class="theme-card transition-colors duration-300">
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -74,25 +90,68 @@
                                 <i class="fa-solid fa-user-tie"></i>
                             </button>
                             <!-- Popover -->
-                            <div id="popover" class="popover-arrow absolute right-0 mt-2 w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-lg opacity-0 invisible transform scale-95 transition-all duration-200 z-10" style="top: 100%;">
+                            <div id="popover"
+                                 class="absolute right-0 mt-2 w-64 rounded-lg shadow-lg opacity-0 invisible transform scale-95 transition-all duration-200 z-50
+                bg-white border border-gray-200 text-gray-900
+                dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100"
+                                 style="top: 100%;">
                                 <div class="p-4">
                                     <div class="flex items-center space-x-3 mb-3">
                                         <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                             <i class="fa-solid fa-user text-white text-sm"></i>
                                         </div>
                                         <div>
-                                            <h3 class="font-semibold text-white">Thang</h3>
-                                            <p class="text-sm text-gray-400">Administrator</p>
-                                        </div>
+                                            <h3 class="font-semibold">@(!string.IsNullOrWhiteSpace(User.Identity?.Name) ? User.Identity.Name : "Guest")</h3>
+                                            <p class="text-sm text-gray-500 dark:text-slate-400">
+                                                @(User.IsInRole("Administrator") ? "Administrator"
+                                                                                            : User.IsInRole("Staff") ? "Staff"
+                                                                                            : User.Identity?.IsAuthenticated == true ? "Member" : "Guest")
+                                        </p>
                                     </div>
-                                    <div class="border-t border-gray-700 pt-3">
+                                </div>
+
+                                    <div class="border-t border-gray-200 dark:border-slate-700 pt-3">
                                         <ul class="space-y-1">
-                                            <li><a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors"><i class="fa-solid fa-user-circle w-4 h-4"></i><span>Profile</span></a></li>
-                                            <li><a href="/Product/Cart" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors"><i class="fa-solid fa-user-circle w-4 h-4"></i><span>Cart</span></a></li>
-                                            <li><a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors"><i class="fa-solid fa-cog w-4 h-4"></i><span>Settings</span></a></li>
-                                            <li class="border-t border-gray-700 pt-1">
+                                            <li>
+                                                <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm rounded-md transition-colors
+                                 text-gray-700 hover:bg-gray-100
+                                 dark:text-slate-200 dark:hover:bg-slate-800">
+                                                    <i class="fa-solid fa-user-circle w-4 h-4"></i><span>Hồ sơ</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/Product/Cart" class="flex items-center space-x-3 px-2 py-2 text-sm rounded-md transition-colors
+                                            text-gray-700 hover:bg-gray-100
+                                            dark:text-slate-200 dark:hover:bg-slate-800">
+                                                    <i class="fa-solid fa-cart-shopping w-4 h-4"></i><span>Giỏ hàng</span>
+                                                </a>
+                                            </li>
+
+                                        @if (User.Identity?.IsAuthenticated == true)
+                                            {
+                                                <li>
+                                                    <a href="/Order" class="flex items-center space-x-3 px-2 py-2 text-sm rounded-md transition-colors
+                                           text-gray-700 hover:bg-gray-100
+                                           dark:text-slate-200 dark:hover:bg-slate-800">
+                                                        <i class="fa-solid fa-bag-shopping w-4 h-4"></i><span>Đơn hàng của tôi</span>
+                                                    </a>
+                                                </li>
+                                            }
+
+                                            <li>
+                                                <a href="#" class="flex items-center space-x-3 px-2 py-2 text-sm rounded-md transition-colors
+                                 text-gray-700 hover:bg-gray-100
+                                 dark:text-slate-200 dark:hover:bg-slate-800">
+                                                    <i class="fa-solid fa-cog w-4 h-4"></i><span>Cài đặt</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="border-t border-gray-200 dark:border-slate-700 pt-1">
                                                 <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="inline">
-                                                    <button type="submit" class="w-full flex items-center space-x-3 px-2 py-2 text-sm text-red-400 hover:bg-red-900/20 rounded-md transition-colors">
+                                                    <button type="submit"
+                                                            class="w-full flex items-center space-x-3 px-2 py-2 text-sm rounded-md transition-colors
+                               text-rose-600 hover:bg-rose-600/10 dark:text-rose-400 dark:hover:bg-rose-400/10">
                                                         <i class="fa-solid fa-sign-out-alt w-4 h-4"></i><span>Logout</span>
                                                     </button>
                                                 </form>
@@ -101,6 +160,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         }
                     </div>
                 </div>
@@ -386,13 +446,22 @@
 
     </script>
     <script>
-        const key='theme', html=document.documentElement;
-        const saved = localStorage.getItem(key);
-        if (saved) html.classList.toggle('dark', saved==='dark');
-        document.getElementById('toggleDark')?.addEventListener('click',()=>{
-          const isDark = html.classList.toggle('dark');
-          localStorage.setItem(key, isDark ? 'dark' : 'light');
-        });
+              (function(){
+          const KEY = 'theme';
+          const root = document.documentElement;
+
+          // đồng bộ theo cookie (nếu có)
+          const cookieTheme = (document.cookie.match(/(?:^|;\s*)theme=(dark|light)/) || [])[1];
+          if (cookieTheme) root.classList.toggle('dark', cookieTheme === 'dark');
+
+          document.getElementById('toggleDark')?.addEventListener('click', () => {
+            const isDark = !root.classList.contains('dark');
+            root.classList.toggle('dark', isDark);
+            try { localStorage.setItem(KEY, isDark ? 'dark' : 'light'); } catch(_){}
+            // lưu cookie 7 ngày để SSR lần sau set class luôn
+            document.cookie = 'theme=' + (isDark ? 'dark' : 'light') + ';path=/;max-age=' + (60*60*24*7);
+          });
+        })();
     </script>
 </body>
 </html>

@@ -1,53 +1,77 @@
-﻿@using Prn222Project.Models;
+﻿@using Prn222Project.Models
 @model List<CartItem>
 
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-white mb-8">Giỏ hàng của bạn</h1>
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    var total = (Model ?? new List<CartItem>()).Sum(x => x.price * x.quantity);
+}
+
+<div class="container mx-auto px-4 py-8 text-theme">
+    <h1 class="text-3xl font-bold mb-8 text-theme">
+        Giỏ hàng của bạn
+    </h1>
 
     @if (Model == null || !Model.Any())
     {
-        <div class="text-center py-16">
-            <p class="text-gray-400 text-xl mb-4">Giỏ hàng của bạn đang trống</p>
-            <a href="/products" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">
+        <div class="text-center py-16 theme-card border theme-line rounded-2xl">
+            <p class="text-lg mb-4 text-theme">Giỏ hàng của bạn đang trống</p>
+            <a href="/products"
+               class="inline-flex items-center justify-center px-6 py-3 rounded-xl
+                    bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition">
                 Tiếp tục mua sắm
             </a>
         </div>
     }
     else
     {
-        <div class="bg-gray-800 rounded-lg overflow-hidden">
+        <!-- Card giỏ hàng -->
+        <div class="theme-card border theme-line rounded-2xl overflow-hidden shadow-sm">
             <div class="p-6">
                 @foreach (var item in Model)
                 {
-                    <div class="flex items-center justify-between py-4 border-b border-gray-700 last:border-b-0">
-                        <div class="flex-1">
-                            <h3 class="text-white font-semibold">@item.productName</h3>
-                            <p class="text-gray-400 text-sm">Màu: @item.color</p>
-                            <p class="text-gray-400 text-sm">Trang trí: @item.decoration</p>
+                    <div class="flex items-center justify-between py-4 border-b border-gray-200 dark:border-slate-700 last:border-b-0">
+                        <!-- Thông tin sản phẩm -->
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold truncate text-theme">@item.productName</h3>
+                            <p class="text-sm text-gray-600 dark:text-slate-400">Màu: @item.color</p>
+                            <p class="text-sm text-gray-600 dark:text-slate-400">Trang trí: @item.decoration</p>
                         </div>
 
-                        <div class="flex items-center space-x-4">
-                            <div class="flex items-center space-x-2">
-                                <button onclick="updateQuantity(@item.productVariantId, @(item.quantity - 1))"
-                                        class="w-8 h-8 bg-gray-600 text-white rounded hover:bg-gray-500">
-                                    -
+                        <!-- Điều khiển số lượng + giá + xoá -->
+                        <div class="flex items-center gap-4 shrink-0">
+                            <!-- Số lượng -->
+                            <div class="flex items-center">
+                                <button type="button"
+                                        onclick="updateQuantity(@item.productVariantId, @(item.quantity - 1))"
+                                        class="w-9 h-9 inline-flex items-center justify-center rounded-lg
+                                                       border border-gray-300 dark:border-slate-600
+                                                       bg-white dark:bg-slate-800
+                                                       hover:bg-gray-50 dark:hover:bg-slate-700 select-none">
+                                    –
                                 </button>
-                                <span class="text-white px-2">@item.quantity</span>
-                                <button onclick="updateQuantity(@item.productVariantId, @(item.quantity + 1))"
-                                        class="w-8 h-8 bg-gray-600 text-white rounded hover:bg-gray-500">
+                                <span class="px-3 select-none">@item.quantity</span>
+                                <button type="button"
+                                        onclick="updateQuantity(@item.productVariantId, @(item.quantity + 1))"
+                                        class="w-9 h-9 inline-flex items-center justify-center rounded-lg
+                                                       border border-gray-300 dark:border-slate-600
+                                                       bg-white dark:bg-slate-800
+                                                       hover:bg-gray-50 dark:hover:bg-slate-700 select-none">
                                     +
                                 </button>
                             </div>
 
+                            <!-- Giá -->
                             <div class="text-right">
-                                <p class="text-white font-semibold">@((item.price * item.quantity).ToString("N0")) ₫</p>
-                                <p class="text-gray-400 text-sm">@item.price.ToString("N0") ₫/sản phẩm</p>
+                                <p class="font-semibold">@((item.price * item.quantity).ToString("N0")) ₫</p>
+                                <p class="text-xs text-gray-600 dark:text-slate-400">@item.price.ToString("N0") ₫/sản phẩm</p>
                             </div>
 
-                            <button onclick="removeFromCart(@item.productVariantId)"
-                                    class="text-red-400 hover:text-red-300 ml-4">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            <!-- Xoá -->
+                            <button type="button"
+                                    onclick="removeFromCart(@item.productVariantId)"
+                                    class="ml-2 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300">
+                                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
                         </div>
@@ -55,21 +79,33 @@
                 }
             </div>
 
-            <div class="bg-gray-700 p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-xl font-semibold text-white">Tổng cộng:</span>
-                    <span class="text-2xl font-bold text-green-400">
-                        @Model.Sum(x => x.price * x.quantity).ToString("N0") ₫
-                    </span>
-                </div>
+            <!-- Tổng cộng + nút -->
+            <div class="px-6 py-5 border-t theme-line"
+                 style="background: color-mix(in srgb, var(--card) 92%, #000 8%);"
+                 class="rounded-b-2xl">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-theme">
+                    <div class="text-xl font-semibold">
+                        Tổng cộng:
+                        <span class="text-emerald-700 dark:text-emerald-400">
+                            @total.ToString("N0") ₫
+                        </span>
+                    </div>
 
-                <div class="flex space-x-4">
-                    <a href="/products" class="cursor-pointer flex-1 bg-gray-600 text-white py-3 rounded-lg text-center hover:bg-gray-500">
-                        Tiếp tục mua sắm
-                    </a>
-                    <a href="/Product/Checkout" class="flex-1 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 text-center">
-                        Thanh toán
-                    </a>
+                    <div class="flex gap-4">
+                        <a href="/products"
+                           class="flex-1 md:flex-none min-w-[180px] inline-flex items-center justify-center px-4 py-3 rounded-xl
+                          theme-card border theme-line hover:opacity-90">
+                            Tiếp tục mua sắm
+                        </a>
+
+                        <a href="/Product/Checkout"
+                           class="flex-1 md:flex-none min-w-[180px] inline-flex items-center justify-center px-4 py-3 rounded-xl
+                          bg-emerald-600 text-white hover:bg-emerald-700
+                          dark:bg-emerald-500 dark:hover:bg-emerald-600
+                          shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:focus:ring-emerald-300">
+                            Thanh toán
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,10 +115,8 @@
 <script>
     function updateQuantity(variantId, newQuantity) {
         if (newQuantity < 0) return;
-
         window.location.href = `/Product/UpdateCartQuantity?variantId=${variantId}&quantity=${newQuantity}`;
     }
-
     function removeFromCart(variantId) {
         if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
             window.location.href = `/Product/RemoveFromCart?variantId=${variantId}`;
